@@ -667,7 +667,24 @@ p.deprecated span {
 
   #content {
     margin-left: 0;
+    font-size: 14px;
   }
+
+  h1, .h1 {
+    font-size: 20px;
+  }
+
+  h2, .h2 {
+    font-size: 18px;
+  }
+
+  h3, .h3 {
+    font-size: 18px;
+  }
+
+  td.code {
+    font-size: 14px;
+}
 
   a {
     text-decoration: none;
@@ -692,13 +709,18 @@ p.deprecated span {
     margin: 10px 0 20px 0;
   }
 
-  /* CUSTOM PRINT MEDIA AN360 TEMPLATE */
+
+
   .well {
     display: none;
   }
 
   .show-api-group {
     page-break-before: always;
+  }
+
+  .show-api-group h1 span {
+    display: none;
   }
 
   table {
