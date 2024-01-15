@@ -74,17 +74,17 @@ a:focus {
 
 h1,
 .h1 {
-  font-size: 28px;
+  font-size: 24px;
 }
 
 h2,
 .h2 {
-  font-size: 26px;
+  font-size: 22px;
 }
 
 h3,
 .h3 {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 p {
@@ -257,7 +257,7 @@ td.code {
 .sidenav>li>a {
   color: var(--white);
   display: block;
-  padding: 8px 13px;
+  padding: 4px 13px;
 }
 
 /* non active sidenav link are highlighted on hover */
@@ -273,7 +273,7 @@ td.code {
 .sidenav>li.nav-header>a {
   padding: 5px 15px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
   background-color: var(--main-gray);
 }
 
