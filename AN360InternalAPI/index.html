@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AN360 APIs</title>
-  <meta name="description" content="AN360 APIs to support different types of security panels (Lynx, Lyric, PRO-SERIES [AIO7, AIO7PLUS]).">
+  <title>AlarmNet360 Internal API</title>
+  <meta name="description" content="AlarmNet360 APIs to support different types of security panels (Lynx, Lyric, PRO-SERIES [AIO7, AIO7PLUS, HYBRID]).">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link href="assets/bootstrap.min.css?v=1706119600701" rel="stylesheet" media="screen">
-  <link href="assets/prism.css?v=1706119600701" rel="stylesheet" />
-  <link href="assets/prism-toolbar.css?v=1706119600701" rel="stylesheet" />
-  <link href="assets/prism-diff-highlight.css?v=1706119600701" rel="stylesheet" />
-  <link href="assets/main.css?v=1706119600701" rel="stylesheet" media="screen, print">
-  <link href="assets/favicon.ico?v=1706119600701" rel="icon" type="image/x-icon">
-  <link href="assets/apple-touch-icon.png?v=1706119600701" rel="apple-touch-icon" sizes="180x180">
-  <link href="assets/favicon-32x32.png?v=1706119600701" rel="icon" type="image/png" sizes="32x32">
-  <link href="assets/favicon-16x16.png?v=1706119600701" rel="icon" type="image/png" sizes="16x16">
+  <link href="assets/bootstrap.min.css?v=1708385859951" rel="stylesheet" media="screen">
+  <link href="assets/prism.css?v=1708385859951" rel="stylesheet" />
+  <link href="assets/prism-toolbar.css?v=1708385859951" rel="stylesheet" />
+  <link href="assets/prism-diff-highlight.css?v=1708385859951" rel="stylesheet" />
+  <link href="assets/main.css?v=1708385859951" rel="stylesheet" media="screen, print">
+  <link href="assets/favicon.ico?v=1708385859951" rel="icon" type="image/x-icon">
+  <link href="assets/apple-touch-icon.png?v=1708385859951" rel="apple-touch-icon" sizes="180x180">
+  <link href="assets/favicon-32x32.png?v=1708385859951" rel="icon" type="image/png" sizes="32x32">
+  <link href="assets/favicon-16x16.png?v=1708385859951" rel="icon" type="image/png" sizes="16x16">
 </head>
 
 <body class="container-fluid">
@@ -207,8 +207,8 @@
     {{subTemplate "article-param-block" params=article.parameter _hasType=_hasTypeInParameterFields section="parameter"}}
     {{subTemplate "article-query-block" params=article.query _hasType=_hasTypeInParameterFields section="query"}}
     {{subTemplate "article-body-block" params=article.body _hasType=_hasTypeInParameterFields section="body"}}
-    {{subTemplate "article-param-block" params=article.success _hasType=_hasTypeInSuccessFields section="success"}}
-    {{subTemplate "article-param-block" params=article.error _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
+    {{subTemplate "article-success-block" params=article.success _hasType=_hasTypeInSuccessFields section="success"}}
+    {{subTemplate "article-error-block" params=article.error _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
 
     {{subTemplate "article-sample-request" article=article id=id}}
   </article>
@@ -336,6 +336,134 @@
                 <span class="label required">{{__ "required"}}</span>
               {{/if}}
             {{/if}}</td>
+            {{#if ../../_hasType}}
+              <td class="code">
+                {{{type}}}
+              </td>
+            {{/if}}
+            <td>
+            {{{nl2br description}}}
+            {{#if defaultValue}}<p class="default-value">{{__ "Default value:"}} <code>{{{defaultValue}}}</code></p>{{/if}}
+            {{#if size}}<p class="type-size">{{__ "Size range:"}} <code>{{{size}}}</code></p>{{/if}}
+            {{#if allowedValues}}<p class="type-size">{{__ "Allowed values:"}}
+              {{#each allowedValues}}
+                <code>{{{this}}}</code>{{#unless @last}}, {{/unless}}
+              {{/each}}
+              </p>
+            {{/if}}
+            </td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    {{/each}}
+    {{#ifCond params.examples.length '>' 0}}
+      <ul class="nav nav-tabs nav-tabs-examples" role="tablist">
+      {{#each params.examples}}
+        <li{{#ifCond @index '==' 0}} class="active"{{/ifCond}}>
+          <a href="#{{../section}}-examples-{{../id}}-{{@index}}" role="tab" data-toggle="tab">{{title}}</a>
+        </li>
+      {{/each}}
+      </ul>
+
+      <div class="tab-content">
+      {{#each params.examples}}
+        <div class="tab-pane{{#ifCond @index '==' 0}} active{{/ifCond}}" id="{{../section}}-examples-{{../id}}-{{@index}}">
+        <pre 
+          data-type="{{type}}"
+          data-prismjs-copy="{{__ "Copy"}}"
+          data-prismjs-copy-error="{{__ "Press Ctrl+C to copy"}}"
+          data-prismjs-copy-success="{{__ "copied!"}}"
+        ><code class="language-{{type}}">{{reformat content type}}</code></pre>
+        </div>
+      {{/each}}
+      </div>
+    {{/ifCond}}
+  {{/if}}
+</script>
+
+<script id="template-article-error-block" type="text/x-handlebars-template">
+  {{#if params}}
+    {{#each params.fields}}
+      <h2>{{__ @key}}</h2>
+      <table>
+        <thead>
+          <tr>
+          <th style="width: 30%">{{#if ../_col1}}{{__ ../_col1}}{{else}}{{__ "Field"}}{{/if}}</th>
+            {{#if ../_hasType}}<th style="width: 10%">{{__ "Type"}}</th>{{/if}}
+            <th style="width: {{#if ../_hasType}}60%{{else}}70%{{/if}}">{{__ "Description"}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#each this}}
+          <tr>
+            <td class="code">
+            {{{nestObject this}}}
+          </td>
+            {{#if ../../_hasType}}
+              <td class="code">
+                {{{type}}}
+              </td>
+            {{/if}}
+            <td>
+            {{{nl2br description}}}
+            {{#if defaultValue}}<p class="default-value">{{__ "Default value:"}} <code>{{{defaultValue}}}</code></p>{{/if}}
+            {{#if size}}<p class="type-size">{{__ "Size range:"}} <code>{{{size}}}</code></p>{{/if}}
+            {{#if allowedValues}}<p class="type-size">{{__ "Allowed values:"}}
+              {{#each allowedValues}}
+                <code>{{{this}}}</code>{{#unless @last}}, {{/unless}}
+              {{/each}}
+              </p>
+            {{/if}}
+            </td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    {{/each}}
+    {{#ifCond params.examples.length '>' 0}}
+      <ul class="nav nav-tabs nav-tabs-examples" role="tablist">
+      {{#each params.examples}}
+        <li{{#ifCond @index '==' 0}} class="active"{{/ifCond}}>
+          <a href="#{{../section}}-examples-{{../id}}-{{@index}}" role="tab" data-toggle="tab">{{title}}</a>
+        </li>
+      {{/each}}
+      </ul>
+
+      <div class="tab-content">
+      {{#each params.examples}}
+        <div class="tab-pane{{#ifCond @index '==' 0}} active{{/ifCond}}" id="{{../section}}-examples-{{../id}}-{{@index}}">
+        <pre 
+          data-type="{{type}}"
+          data-prismjs-copy="{{__ "Copy"}}"
+          data-prismjs-copy-error="{{__ "Press Ctrl+C to copy"}}"
+          data-prismjs-copy-success="{{__ "copied!"}}"
+        ><code class="language-{{type}}">{{reformat content type}}</code></pre>
+        </div>
+      {{/each}}
+      </div>
+    {{/ifCond}}
+  {{/if}}
+</script>
+
+<script id="template-article-success-block" type="text/x-handlebars-template">
+  {{#if params}}
+    {{#each params.fields}}
+      <h2>{{__ @key}}</h2>
+      <table>
+        <thead>
+          <tr>
+          <th style="width: 30%">{{#if ../_col1}}{{__ ../_col1}}{{else}}{{__ "Field"}}{{/if}}</th>
+            {{#if ../_hasType}}<th style="width: 10%">{{__ "Type"}}</th>{{/if}}
+            <th style="width: {{#if ../_hasType}}60%{{else}}70%{{/if}}">{{__ "Description"}}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#each this}}
+          <tr>
+            <td class="code">
+            {{{nestObject this}}}
+          </td>
             {{#if ../../_hasType}}
               <td class="code">
                 {{{type}}}
@@ -1045,6 +1173,6 @@
   </div>
 </div>
 
-<script src="assets/main.bundle.js?v=1706119600701"></script>
+<script src="assets/main.bundle.js?v=1708385859951"></script>
 </body>
 </html>
