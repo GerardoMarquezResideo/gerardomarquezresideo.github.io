@@ -903,11 +903,100 @@ div.rezi-layout
 div.rezi-layout h1
 {
 	mc-heading-level: 0;
+	margin: 0;
 }
 
 p.rezi-annot
 {
 	color: #767676;
 	font-style: italic;
+}
+
+div.rezi-header
+{
+	padding: 20px 5% 0;
+}
+
+div.rezi-header h1
+{
+	mc-heading-level: 0;
+	margin: 0;
+}
+
+div.rezi-header p
+{
+	margin: 0;
+}
+
+div.rezi-header p:first-of-type
+{
+	margin-top: 20px;
+}
+
+div.rezi-header p:last-of-type
+{
+	margin-bottom: 20px;
+}
+
+div.rezi-feedback
+{
+	margin: 40px 0;
+}
+
+div.rezi-feedback p
+{
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+p.rezi-table-p
+{
+	letter-spacing: 0.25px;
+	widows: 3;
+	orphans: 3;
+	font-size: 10pt;
+	line-height: 1rem;
+	margin: 0;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+p.rezi-table-annot
+{
+	color: #767676;
+	font-style: italic;
+	margin: 0;
+}
+
+MadCap|dropDown.rezi-dropdown
+{
+	border-bottom: none;
+}
+
+MadCap|dropDownHead.rezi-dropdown-head
+{
+	font-size: 14pt;
+	background-color: #c0c0c0;
+}
+
+MadCap|dropDownHotspot.rezi-dropdown-hotspot
+{
+	cursor: hand;
+	text-decoration: none;
+	color: #45494C;
+	font-weight: bold;
+	border-bottom: none;
+	font-size: 14pt;
+	display: block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+MadCap|menuProxy.rezi-menu-proxy
+{
+	list-style: none;
+	line-height: 12pt;
+	padding: 0;
 }
 
