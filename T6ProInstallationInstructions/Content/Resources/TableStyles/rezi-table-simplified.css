@@ -22,12 +22,12 @@ mcTableColumnStyle
 	cell-padding-bottom: 5px;
 	cell-padding-left: 5px;
 	cell-padding-right: 5px;
-	cell-content-style-tag: p;
 	cell-content-style-class: rezi-table-p;
 	separator-style: solid;
 	separator-width: 1px;
 	separator-color: #c0c0c0;
 	vertical-align: top;
+	cell-content-style-tag: p;
 }
 
 mcTableColumnStyle
